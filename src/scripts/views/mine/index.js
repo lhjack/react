@@ -20,8 +20,8 @@ export class Mine extends Component{
             {title:"我的订单",path:"/app/order",icon:"icon-ziyuan"},
             {title:"积分商城",path:"/app/points",icon:"icon-yly_jifenshangcheng"},
             {title:"饿了么会员卡",path:"/",icon:"icon-huangguanguanjundiyihuiyuan"},
-            {title:"服务中心",path:"/",icon:"icon-yk_fangkuai_fill"},
-            {title:"下载饿了么APP",path:"/",icon:"icon-changyonglogo40"},
+            {title:"服务中心",path:"/app/home",icon:"icon-yk_fangkuai_fill"},
+            {title:"下载饿了么APP",path:"",icon:"icon-changyonglogo40"},
         ]
     }
     goLogin=()=>{
@@ -105,6 +105,7 @@ export class Pop extends Component{
         }
     }
     gotoLogin=()=>{
+     sessionStorage.removeItem('userInfo')
      history.push("/login")
     }
   render(){
@@ -114,10 +115,10 @@ export class Pop extends Component{
             overlayStyle={{ color: 'currentColor' }}
             visible={this.state.visible}
             overlay={[
-              (<Item key="4" value="scan" icon={myImg('tOtXhkIWzwotgGSeptou')} data-seed="logId">Scan</Item>),
-              (<Item key="5" value="login" onClick={this.gotoLogin} icon={myImg('PKAgAqZWJVNwKsAJSmXd')} style={{ whiteSpace: 'nowrap' }}>login</Item>),
-              (<Item key="6" value="button ct" icon={myImg('uQIYTFeRrjPELImDRrPt')}>
-                <span style={{ marginRight: 5 }}>Help</span>
+              (<Item key="4" value="scan"  data-seed="logId"><i className="iconfont icon icon-richscan_icon"></i>扫一扫</Item>),
+              (<Item key="5" value="login"   style={{ whiteSpace: 'nowrap' }}><i className="iconfont icon icon-zhaoxiang"></i>照相</Item>),
+              (<Item key="6" value="button ct" onClick={this.gotoLogin}>
+                <span style={{ marginRight: 5 }}><i className="iconfont icon icon-zhuxiao"></i>注销</span>
               </Item>),
             ]}
             align={{
@@ -141,4 +142,4 @@ export class Pop extends Component{
     )
   }
 }
-const myImg = src => <img src={`https://gw.alipayobjects.com/zos/rmsportal/${src}.svg`} className="am-icon am-icon-xs" alt="" />;
+// const myImg = src => <img src={`https://gw.alipayobjects.com/zos/rmsportal/${src}.svg`} className="am-icon am-icon-xs" alt="" />;

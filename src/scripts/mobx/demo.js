@@ -10,6 +10,7 @@ class Demo{
   @observable city="今天星期四"
   @observable Orders=[]
   @observable name=null
+  // @observable flng=false
 
   @action countAddBox=()=>{
     console.log("abcd")
@@ -46,12 +47,16 @@ class Demo{
       username
     }).then(res=>{
         this.Orders=res.data.result
-        // res.data.result.forEach((item,i)=>{
-        //     //  console.log(item)
-        //      this.name=item.name
-        // })
     })
   }
+
+  @computed get flng(){
+    var flng=true;
+    if(this.Orders.length>0){
+         flng=false
+    }
+    return flng;
+}
 }
 
 export default new Demo();

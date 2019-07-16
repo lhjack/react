@@ -34,7 +34,7 @@ export class Sort extends Component{
         console.log(e)
         car.addTo(e)
         userInfo.addToCar(car.name,car.a,car.b,this.props.name,e);
-        userInfo.ToCart(car.name,car.a,this.props.name)
+        // userInfo.ToCart(car.name,car.a,this.props.name)
 
     }
     Toback=(e)=>{
@@ -55,13 +55,10 @@ export class Sort extends Component{
     }
     delSelect=(shop)=>{
         userInfo.delSelect(car.name,car.a,shop)
-
-        // userInfo.ToCart(car.name,car.a,this.props.name)
     }
     cart=()=>{
-        userInfo.flng=!userInfo.flng  
+        userInfo.flng=!userInfo.flng 
         userInfo.addCart(this.props.name)
-        userInfo.ToCart(car.name,car.a,this.props.name)
     }
     goOrder=()=>{
         var userInfo=sessionStorage.userInfo

@@ -1,5 +1,6 @@
 import {observable,action,computed} from "mobx"
 import {axios}  from "&"
+import {history} from "&"
 
 
 
@@ -9,7 +10,7 @@ class UserInfo{
    @observable mobile="";
    @observable carts=[]
    @observable flng=false
-   @observable   sun=true
+//    @observable   sun=true
    @observable  staet={}
 
 //    @action getInfo =(userInfo,isLogin,mobile)=>{
@@ -19,32 +20,32 @@ class UserInfo{
 //    }
     // 加入购物车
    @action addToCar=(name,count,pirce,shop,id)=>{
-       console.log(name,count,pirce,shop)
+    //    console.log(name,count,pirce,shop)
         var userInfo=sessionStorage.userInfo
         var token=""
         if(userInfo){
             token=JSON.parse(userInfo).token
         }
-        console.log(token)
-        var a={
-            name,
-            count,
-            pirce,
-            shop,
-            id,
-            token
+        if(token){
+            axios.post("/react/addToCar",{ 
+                name,
+                count,
+                pirce,
+                shop,
+                id,
+                token
+          }).then(res=>{
+             console.log(res);
+            axios.post("/react/getCart",{
+                shop
+            }).then(res=>{
+                 this.carts=res.data.result
+                // this.sun=false
+            }) 
+          })
+        }else{
+            history.push("/login")
         }
-
-       axios.post("/react/addToCar",{ 
-             name,
-             count,
-             pirce,
-             shop,
-             id,
-             token
-       }).then(res=>{
-          console.log(res);
-       })
    }
 
   // 获取购物车
@@ -54,8 +55,6 @@ class UserInfo{
            shop
        }).then(res=>{
             this.carts=res.data.result
-            // this.flng=true
-       
        })  
    }
    // 更新购物车
@@ -66,8 +65,7 @@ class UserInfo{
            count,
            shop        
        }).then(res=>{
-        //    this.addToCar();
-          this.sun=false
+        //   this.sun=false
        })
    }
 // 删除
@@ -76,13 +74,7 @@ class UserInfo{
      axios.post("/react/toDelete",{
          shop
      }).then(res=>{
-        axios.post("/react/toCart",{
-            name,
-            count,
-            shop        
-        }).then(res=>{ 
-            this.sun=false
-        })
+        // this.sun=false
      })
    }
 
@@ -138,6 +130,18 @@ class UserInfo{
         }
     })
     return flng
+}
+
+@computed get  sun(){
+   var sun=true;
+   var total=0;
+   this.carts.forEach((item)=>{
+    total +=item.pirce*item.count
+       if(total>20){
+           sun=false
+       }
+   })
+   return sun
 }
 }
 

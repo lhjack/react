@@ -2,6 +2,7 @@ import { Head } from "../../components/head";
 import demo from "~/mobx/demo"
 import {observer} from "mobx-react"
 import {connect} from "react-redux";
+import { NoticeBar, WhiteSpace, Icon } from 'antd-mobile';
 import {ListItem,ListItemText,ListItemAvatar} from '@material-ui/core';
 import { addOrder } from "../../actions";
 
@@ -21,10 +22,10 @@ export class Oredr extends Component{
         var token=""
         if(userInfo){
             token=JSON.parse(userInfo).token
+        }  
+        if(token){
+            demo.addOrder(token)       
         }
-        if(demo.Orders.length<=0){
-            demo.addOrder(token)
-        }    
         // let {dispatch,Oredrs}=this.props;
         // if(Oredrs.length<=0){
         //     dispatch(addOrder({
@@ -38,8 +39,6 @@ export class Oredr extends Component{
     render(){
         console.log(this.props);
         const {Orders} = demo;
-        // console.log("000");
-        // console.log(name);
         return(
             <div>
                 <Head title="订单列表" show={true}></Head>
@@ -66,6 +65,9 @@ export class Oredr extends Component{
                            )
                     })
                 }
+               {demo.flng&&<NoticeBar mode="closable" >
+                        快去点餐吧！
+                </NoticeBar>}
             </div>
         )
     }
