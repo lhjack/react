@@ -11,7 +11,7 @@
 2. create-reac  t-app react-cli  
 3. cd react-cli 
 4. npm start
-5. npm run eject   查询完整的配件文件 111111111 
+5. npm run eject   查询完整的配件文件 
 
 ##  功能
 1.短信登录 
